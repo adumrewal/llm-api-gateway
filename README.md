@@ -19,13 +19,7 @@ The LLM API Gateway is a middleware service designed to manage and route request
 ## Installation
 To install the dependencies, run:
 ```bash
-npm install
-```
-
-## Usage
-To start the server, use:
-```bash
-npm start
+pip install -r requirements.txt
 ```
 
 ## Configuration
