@@ -1,7 +1,5 @@
-# LLM API Gateway
-
 ## Current state of repository
-This is still in development. As of now you can find the codes for the following:
+This is still in development. As of now you can find the following:
 - Making a simple request to OpenAI API
 - Making a simple request to Azure OpenAI API
 - Making a simple request to AWS Bedrock Claude API

@@ -56,7 +56,7 @@ def api_call(
 
     if not json_response:
         return answer
-    
+
     response_text = "{" + answer
     try:
         _ = json.loads(response_text)
