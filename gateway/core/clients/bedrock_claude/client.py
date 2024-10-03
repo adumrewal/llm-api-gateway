@@ -1,6 +1,8 @@
 import json
 import boto3
 
+from logzero import logger
+
 from gateway.typing import BaseClient
 
 
@@ -71,7 +73,7 @@ class BedrockClaudeClient(BaseClient):
             _ = json.loads(response_text)
             return response_text
         except Exception as e:
-            print(
+            logger.error(
                 f"ERROR: Can't parse response JSON. Reason: {e}. Response text: {response_text}"
             )
             raise e

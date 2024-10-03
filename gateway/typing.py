@@ -1,3 +1,4 @@
+from enum import Enum
 from pydantic import BaseModel, Field
 
 
@@ -16,8 +17,12 @@ class BaseClient:
     ) -> str:
         raise NotImplementedError
 
+class ClientsEnum(str, Enum):
+    openai = "openai"
+    azure_openai = "azure_openai"
+    bedrock_claude = "bedrock_claude"
 
-class ClientApiCall(BaseModel):
+class ClientCallDataModel(BaseModel):
     model_name: str = Field(
         description="The name of the model to use for the API call",
     )
@@ -39,3 +44,8 @@ class ClientApiCall(BaseModel):
         description="The maximum number of tokens to generate",
         default=2000,
     )
+    preference: list[ClientsEnum] = Field(
+        description="The preference of the model to use for the API call",
+        default=[ClientsEnum.openai, ClientsEnum.azure_openai, ClientsEnum.bedrock_claude],
+    )
+
