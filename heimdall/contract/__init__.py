@@ -6,9 +6,9 @@ from fastapi import FastAPI, Request, Response, status
 from logzero import logger
 from .base import router as base_router
 
-from gateway import __version__
-from gateway.core import logging_core as log_core
-from gateway.core import observability_core as obs_core
+from heimdall import __version__
+from heimdall.core import logging_core as log_core
+from heimdall.core import observability_core as obs_core
 
 log_core.initialize()
 
@@ -25,7 +25,7 @@ def app_add_middlewares(app: FastAPI):
             request.method,
             request.url,
             extra={
-                "gateway_meta": {
+                "heimdall_meta": {
                     "topic": request.url,
                     "request_id": request_id,
                     "event": "initiated",
@@ -43,7 +43,7 @@ def app_add_middlewares(app: FastAPI):
             request.method,
             request.url,
             extra={
-                "gateway_meta": {
+                "heimdall_meta": {
                     "topic": request.url,
                     "request_id": request_id,
                     "event": "completed",
@@ -78,7 +78,7 @@ def create_app() -> FastAPI:
             "env": ELASTIC_APM_ENVIRONMENT,
         },
         extra={
-            "gateway_meta": {
+            "heimdall_meta": {
                 "service": SERVICE_NAME,
                 "env": ELASTIC_APM_ENVIRONMENT,
                 "version": __version__,
@@ -87,7 +87,7 @@ def create_app() -> FastAPI:
         },
     )
 
-    app = FastAPI(title="AirMDR Jarvis Service", version=__version__)
+    app = FastAPI(title="Heimdall Gateway Service", version=__version__)
     app_add_middlewares(app)
     obs_core.add_client_to_middleware(app)
     app_add_default_apis(app)

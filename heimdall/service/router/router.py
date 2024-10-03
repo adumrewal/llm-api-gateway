@@ -1,10 +1,10 @@
 from logzero import logger
 
-from gateway.core.clients.azure_openai.client import AzureOpenAIClient
-from gateway.core.clients.bedrock_claude.client import BedrockClaudeClient
-from gateway.core.clients.openai.client import OpenAIClient
+from heimdall.core.clients.azure_openai.client import AzureOpenAIClient
+from heimdall.core.clients.bedrock_claude.client import BedrockClaudeClient
+from heimdall.core.clients.openai.client import OpenAIClient
 
-from gateway.typing import (
+from heimdall.typing import (
     BaseClient,
     ClientCallDataModel,
     ClientsEnum,
@@ -37,7 +37,7 @@ class LLMRouter:
     
     def client_call(self, client: BaseClient, data_model: ClientCallDataModel) -> str:
         return client.api_call(
-            model_name=data_model.model_name,
+            model_name=data_model.name_model,
             system_prompt=data_model.system_prompt,
             user_prompt=data_model.user_prompt,
             json_response=data_model.json_response,

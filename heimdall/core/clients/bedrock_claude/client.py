@@ -3,7 +3,7 @@ import boto3
 
 from logzero import logger
 
-from gateway.typing import BaseClient
+from heimdall.typing import BaseClient
 
 
 BASE_MODEL = "anthropic.claude-3-5-sonnet-20240620-v1:0"

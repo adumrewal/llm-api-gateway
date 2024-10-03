@@ -1,7 +1,7 @@
 from logzero import logger
 from fastapi import APIRouter
 
-from gateway.service.router.router import LLMRouter
+from heimdall.service.router.router import LLMRouter
 
 
 llm_router: LLMRouter

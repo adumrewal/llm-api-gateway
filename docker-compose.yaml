@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  heimdall:
+    container_name: heimdall
+    image: heimdall:latest
+    entrypoint: ["gunicorn"]
+    command:
+      - '--threads'
+      - '16'
+      - '-k'
+      - 'uvicorn.workers.UvicornWorker'
+      - '-b'
+      - '0.0.0.0:16000'
+      - '--timeout'
+      - '0'
+      - 'heimdall.contract:app'
+    ports:
+      - '16000:16000'
+    environment:
+      ELASTIC_APM_SERVICE_NAME: heimdall-local
+      ELASTIC_APM_SECRET_TOKEN: elastic-secret
+      ELASTIC_APM_ENVIRONMENT: local
+      ELASTIC_APM_SERVER_URL: https://your-elastic-url:443
+      ELASTIC_APM_ENABLED: false

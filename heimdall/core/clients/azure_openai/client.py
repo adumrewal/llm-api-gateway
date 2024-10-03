@@ -1,13 +1,19 @@
-from openai import OpenAI, NotGiven
+from openai import AzureOpenAI, NotGiven
 
-from gateway.typing import BaseClient
+from heimdall.typing import BaseClient
 
-OPENAI_API_KEY = ""
+AZURE_OPENAI_API_KEY = ""
+AZURE_OPENAI_API_VERSION = ""
+AZURE_OPENAI_API_ENDPOINT = "https://project-name.openai.azure.com/"
 
 
-class OpenAIClient(BaseClient):
+class AzureOpenAIClient(BaseClient):
     def __init__(self):
-        self.client = OpenAI(api_key=OPENAI_API_KEY)
+        self.client = AzureOpenAI(
+            api_key=AZURE_OPENAI_API_KEY,
+            api_version=AZURE_OPENAI_API_VERSION,
+            azure_endpoint=AZURE_OPENAI_API_ENDPOINT,
+        )
 
     def api_call(
         self,

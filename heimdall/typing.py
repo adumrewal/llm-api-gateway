@@ -23,7 +23,7 @@ class ClientsEnum(str, Enum):
     bedrock_claude = "bedrock_claude"
 
 class ClientCallDataModel(BaseModel):
-    model_name: str = Field(
+    name_model: str = Field(
         description="The name of the model to use for the API call",
     )
     system_prompt: str = Field(
