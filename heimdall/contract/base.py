@@ -1,10 +1,13 @@
+from typing import Annotated
+from fastapi import APIRouter, Body
 from logzero import logger
-from fastapi import APIRouter
 
 from heimdall.service.router.router import LLMRouter
+from heimdall.typing import ClientCallDataModel
 
 
 llm_router: LLMRouter
+
 
 def startup():
     global llm_router
@@ -19,3 +22,25 @@ router = APIRouter(
     tags=["base"],
     responses={404: {"description": "Not found"}},
 )
+
+
+@router.post("/model_call")
+async def model_call(
+    request: Annotated[
+        ClientCallDataModel,
+        Body(
+            examples=[
+                {
+                    "name_model": "gpt-3.5-turbo",
+                    "system_prompt": "The system prompt to use for the API call",
+                    "user_prompt": "The user prompt to use for the API call",
+                    "json_response": False,
+                    "temperature": 0,
+                    "max_tokens": 2000,
+                    "preference": ["openai", "azure_openai", "bedrock_claude"],
+                }
+            ]
+        ),
+    ]
+) -> str:
+    return await llm_router.model_call(request)

@@ -1,8 +1,9 @@
-from openai import OpenAI, NotGiven
+import os
+from openai import OpenAI, NOT_GIVEN
 
 from heimdall.typing import BaseClient
 
-OPENAI_API_KEY = ""
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 
 class OpenAIClient(BaseClient):
@@ -27,7 +28,11 @@ class OpenAIClient(BaseClient):
                 {"role": "user", "content": user_prompt},
             ],
             response_format=(
-                {"type": "json_object"} if json_response else NotGiven
+                {"type": "json_object"} if json_response else NOT_GIVEN
             ),
         )
-        return response.choices[0].message.content
+        return (
+            response.choices[0].message.content or ""
+            if response.choices
+            else ""
+        )

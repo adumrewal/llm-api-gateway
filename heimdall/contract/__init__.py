@@ -52,6 +52,7 @@ def app_add_middlewares(app: FastAPI):
         )
         return response
 
+
 def app_add_default_apis(app: FastAPI):
     @app.get("/health")
     def health_check():
@@ -60,15 +61,17 @@ def app_add_default_apis(app: FastAPI):
             media_type="application/json",
             status_code=200,
         )
-    
+
     @app.get("/.well-known/live", response_class=Response)
     @app.get("/.well-known/ready", response_class=Response)
     async def live_and_ready(response: Response):
         response.status_code = status.HTTP_204_NO_CONTENT
 
+
 def app_include_routers(app: FastAPI):
     app.include_router(base_router)
     return None
+
 
 def create_app() -> FastAPI:
     logger.info(

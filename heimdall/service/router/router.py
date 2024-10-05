@@ -16,8 +16,8 @@ class LLMRouter:
         self.openai_client = OpenAIClient()
         self.azure_openai_client = AzureOpenAIClient()
         self.bedrock_claude_client = BedrockClaudeClient()
-    
-    def model_call(self, data_model: ClientCallDataModel) -> str:
+
+    def _model_call(self, data_model: ClientCallDataModel) -> str:
         for preference in data_model.preference:
             client: BaseClient | None = None
             if preference == ClientsEnum.openai:
@@ -28,14 +28,16 @@ class LLMRouter:
                 client = self.bedrock_claude_client
             else:
                 raise Exception("Invalid model preference")
-            
+
             try:
                 return self.client_call(client, data_model)
             except Exception as e:
                 logger.error(f"Error calling {preference}: {e}")
         raise Exception("No model available")
-    
-    def client_call(self, client: BaseClient, data_model: ClientCallDataModel) -> str:
+
+    def client_call(
+        self, client: BaseClient, data_model: ClientCallDataModel
+    ) -> str:
         return client.api_call(
             model_name=data_model.name_model,
             system_prompt=data_model.system_prompt,
@@ -44,3 +46,6 @@ class LLMRouter:
             temperature=data_model.temperature,
             max_tokens=data_model.max_tokens,
         )
+
+    async def model_call(self, data_model: ClientCallDataModel) -> str:
+        return self._model_call(data_model)

@@ -1,4 +1,4 @@
-from openai import AzureOpenAI, NotGiven
+from openai import AzureOpenAI, NOT_GIVEN
 
 from heimdall.typing import BaseClient
 
@@ -33,7 +33,11 @@ class AzureOpenAIClient(BaseClient):
                 {"role": "user", "content": user_prompt},
             ],
             response_format=(
-                {"type": "json_object"} if json_response else NotGiven
+                {"type": "json_object"} if json_response else NOT_GIVEN
             ),
         )
-        return response.choices[0].message.content
+        return (
+            response.choices[0].message.content or ""
+            if response.choices
+            else ""
+        )

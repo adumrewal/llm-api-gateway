@@ -16,6 +16,7 @@ ELASTIC_APM_ENVIRONMENT = os.getenv("ELASTIC_APM_ENVIRONMENT")
 ELASTIC_APM_SERVER_URL = os.getenv("ELASTIC_APM_SERVER_URL")
 ELASTIC_APM_ENABLED = os.getenv("ELASTIC_APM_ENABLED")
 
+
 def initialize() -> None:
     global _apm
     try:

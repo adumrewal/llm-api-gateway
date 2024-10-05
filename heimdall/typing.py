@@ -17,10 +17,12 @@ class BaseClient:
     ) -> str:
         raise NotImplementedError
 
+
 class ClientsEnum(str, Enum):
     openai = "openai"
     azure_openai = "azure_openai"
     bedrock_claude = "bedrock_claude"
+
 
 class ClientCallDataModel(BaseModel):
     name_model: str = Field(
@@ -46,6 +48,9 @@ class ClientCallDataModel(BaseModel):
     )
     preference: list[ClientsEnum] = Field(
         description="The preference of the model to use for the API call",
-        default=[ClientsEnum.openai, ClientsEnum.azure_openai, ClientsEnum.bedrock_claude],
+        default=[
+            ClientsEnum.openai,
+            ClientsEnum.azure_openai,
+            ClientsEnum.bedrock_claude,
+        ],
     )
-
