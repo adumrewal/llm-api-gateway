@@ -1,61 +1,105 @@
-## Current state of repository
-This is still in development. As of now you can find the following:
-- Making a simple request to OpenAI API
-- Making a simple request to Azure OpenAI API
-- Making a simple request to AWS Bedrock Claude API
+# Heimdall - Your AI Gateway Service
 
-# Actual Objective
-## Overview
-The LLM API Gateway is a middleware service designed to manage and route requests to various language model APIs. It provides a unified interface for interacting with multiple language models, ensuring scalability, security, and ease of use.
+Heimdall is an AI Gateway Service that provides a unified interface for interacting with various LLM models from different providers.
 
 ## Features
-- **Unified API Interface**: Interact with multiple language models through a single API.
-- **Scalability**: Efficiently manage and route requests to handle high traffic.
-- **Security**: Secure API endpoints with authentication and rate limiting.
-- **Logging and Monitoring**: Integrated logging and monitoring for better observability.
+
+- Support for multiple AI providers:
+  - OpenAI
+  - Azure OpenAI
+  - AWS Bedrock (Anthropic Claude)
+- Flexible routing based on provider preferences
+- JSON response support
+- Configurable model parameters (temperature, max tokens, etc.)
+- FastAPI-based REST API
+- Docker support for easy deployment
 
 ## Installation
-To install the dependencies, run:
-```bash
-pip install -r requirements.txt
-```
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/adumrewal/llm-api-gateway.git
+   cd llm-api-gateway
+   ```
+
+2. Install dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
 
 ## Configuration
-Configuration options can be set in the `config.json` file. Example:
+
+Set the following environment variables:
+
+- `OPENAI_API_KEY`: Your OpenAI API key
+- `AZURE_OPENAI_API_KEY`: Your Azure OpenAI API key
+- `AZURE_OPENAI_API_VERSION`: Azure OpenAI API version
+- `AZURE_OPENAI_API_ENDPOINT`: Azure OpenAI API endpoint
+- `AWS_BEDROCK_SERVICE_NAME`: AWS Bedrock service name (default: "bedrock-runtime")
+- `AWS_BEDROCK_ACCESS_KEY_ID`: AWS access key ID for Bedrock
+- `AWS_BEDROCK_SECRET_ACCESS_KEY`: AWS secret access key for Bedrock
+- `AWS_BEDROCK_REGION`: AWS region for Bedrock (default: "us-east-1")
+
+## Usage
+
+### Running locally
+```
+uvicorn heimdall.contract:app --reload --port 16000
+```
+
+The API will be available at `http://localhost:16000`.
+
+### Running with Docker
+
+1. Build the Docker image:
+   ```
+   docker build -t heimdall:latest .
+   ```
+
+2. Run the container:
+   ```
+   docker-compose up
+   ```
+
+The API will be available at `http://localhost:16000`.
+
+## API Endpoints
+
+### API Documentation
+
+For a comprehensive overview of the API, including the FastAPI contract and all available endpoints, visit:
+
+http://localhost:16000/docs#/
+
+This interactive Swagger UI documentation provides:
+
+- Detailed descriptions of all API endpoints
+- Request and response schemas
+- The ability to test API endpoints directly from your browser
+
+Exploring this documentation will give you a clear understanding of the API's capabilities and how to interact with it effectively.
+
+### Example: POST /base/model_call
+
+Make a call to an AI model.
+
+Request body:
 ```json
 {
-    "apiKeys": {
-        "model1": "your-api-key-here",
-        "model2": "your-api-key-here"
-    },
-    "rateLimit": {
-        "windowMs": 60000,
-        "max": 100
-    }
+"name_model": "gpt-3.5-turbo",
+"system_prompt": "The system prompt to use for the API call",
+"user_prompt": "The user prompt to use for the API call",
+"json_response": false,
+"temperature": 0,
+"max_tokens": 2000,
+"preference": ["openai", "azure_openai", "bedrock_claude"]
 }
 ```
 
-## API Endpoints
-- `POST /api/v1/query`: Query a language model.
-    - **Request Body**:
-        ```json
-        {
-            "model": "model1",
-            "input": "Your input text here"
-        }
-        ```
-    - **Response**:
-        ```json
-        {
-            "output": "Model response here"
-        }
-        ```
-
 ## Contributing
-Contributions are welcome! Please fork the repository and submit a pull request.
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## Contact
-For any inquiries, please contact [amoldumrewal@gmail.com](mailto:amoldumrewal@gmail.com).
+[License decision pending]
