@@ -1,10 +1,12 @@
+import os
+
 from openai import AzureOpenAI, NOT_GIVEN
 
 from heimdall.typing import BaseClient
 
-AZURE_OPENAI_API_KEY = ""
-AZURE_OPENAI_API_VERSION = ""
-AZURE_OPENAI_API_ENDPOINT = "https://project-name.openai.azure.com/"
+AZURE_OPENAI_API_KEY = os.getenv("AZURE_OPENAI_API_KEY", "")
+AZURE_OPENAI_API_VERSION = os.getenv("AZURE_OPENAI_API_VERSION", "2021-09-01")
+AZURE_OPENAI_API_ENDPOINT = os.getenv("AZURE_OPENAI_API_ENDPOINT", "")
 
 
 class AzureOpenAIClient(BaseClient):

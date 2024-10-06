@@ -1,3 +1,4 @@
+import os
 import json
 import boto3
 
@@ -7,10 +8,10 @@ from heimdall.typing import BaseClient
 
 
 BASE_MODEL = "anthropic.claude-3-5-sonnet-20240620-v1:0"
-AWS_SERVICE_NAME = "bedrock-runtime"
-AWS_ACCESS_KEY_ID = ""
-AWS_SECRET_ACCESS_KEY = ""
-AWS_BEDROCK_REGION = "us-east-1"
+AWS_SERVICE_NAME = os.getenv("AWS_BEDROCK_SERVICE_NAME", "bedrock-runtime")
+AWS_ACCESS_KEY_ID = os.getenv("AWS_BEDROCK_ACCESS_KEY_ID", "")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_BEDROCK_SECRET_ACCESS_KEY", "")
+AWS_BEDROCK_REGION = os.getenv("AWS_BEDROCK_REGION", "us-east-1")
 
 
 # Utility functions
