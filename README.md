@@ -103,3 +103,35 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 [License decision pending]
+
+## To-do
+
+- Planning to develop v1 in 3 phases:
+   - Phase 0: Basic structure with 2-3 providers.
+      - Done.
+   - Phase 1: Correct fallback mechanism.
+      - Currently fallback is at provider level. Need to add fallback at model level.
+   - Phase 2: Configs for fall back via UI. Logging.
+      - UI portal where users can manage their configs for fall back.
+      - User can select one model and then define fall back models for it.
+      - Need to add logging for each API call. Logging includes request, response, latencies, tokens used, etc.
+   - Phase 3: System prompt management from UI. Usecase ID based auto configs.
+      - Users can define usecases.
+      - Each usecase can have system prompt, model, temperature, max tokens.
+      - On each API call, user will specify usecase, and based on that we will auto configure the model, system prompt, temperature, max tokens.
+      - Fallback will be managed automatically. If a provider fails, we will try next model in the list.
+
+- Would love contributions for:
+   - Add support for streaming responses
+   - Add support for webhooks
+   - Add support for caching
+   - Add support for db integration
+   - Add support for rate limiting
+   - Add support for content moderation
+   - Add support for automatic provider selection
+
+- Would love to get feedback on:
+   - What are your favorite usecases of AI Gateways?
+   - What are your favorite features in other AI Gateways?
+   - What can we do better than others?
+   - Any suggestions/open issues/bugs?
