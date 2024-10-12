@@ -1,7 +1,12 @@
 .mypy_cache/
 .ruff_cache/
+.pytest_cache/
+.DS_Store
+
 
 __pycache__/
 local/
 mypy.ini
 .gitignore
+
+data/

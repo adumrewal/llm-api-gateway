@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Management API</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header>
+        <h1>Model Management API</h1>
+    </header>
+
+    <main>
+        <section id="model-list">
+            <h2>Available Models</h2>
+            <p>Select a model for updating or deleting.</p>
+            <ul id="models">
+                <!-- Example of how list items should be structured -->
+                <!-- <li>
+                    <input type="radio" id="model1" name="model-selection">
+                    <label for="model1">Model 1 Name</label>
+                </li> -->
+            </ul>
+        </section>
+
+        <section id="model-actions">
+            <h2>Model Actions</h2>
+            <button id="create-model">Create Model</button>
+            <button id="update-model">Update Model</button>
+            <button id="delete-model">Delete Model</button>
+        </section>
+
+        <section id="model-details">
+            <h2>Model Details</h2>
+            <div id="model-info"></div>
+        </section>
+
+        <dialog id="create-model-dialog">
+            <form method="dialog">
+                <h2>Create New Model</h2>
+                <label for="model-name">Name:</label>
+                <input type="text" id="model-name" required>
+                <label for="model-provider">Provider:</label>
+                <select id="model-provider" required></select>
+                <label for="model-description">Description:</label>
+                <textarea id="model-description" required></textarea>
+                <label for="model-cost">Cost per million tokens:</label>
+                <input type="number" id="model-cost" step="0.01">
+                <button type="submit">Create</button>
+                <button type="button" id="cancel-create-model">Cancel</button>
+            </form>
+        </dialog>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Model Management API. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>

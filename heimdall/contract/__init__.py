@@ -3,8 +3,13 @@ import json
 import time
 
 from fastapi import FastAPI, Request, Response, status
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
 from logzero import logger
+
 from .base import router as base_router
+from .management.models import router as management_models_router
 
 from heimdall import __version__
 from heimdall.core import logging_core as log_core
@@ -70,6 +75,7 @@ def app_add_default_apis(app: FastAPI):
 
 def app_include_routers(app: FastAPI):
     app.include_router(base_router)
+    app.include_router(management_models_router)
     return None
 
 
@@ -95,6 +101,19 @@ def create_app() -> FastAPI:
     obs_core.add_client_to_middleware(app)
     app_add_default_apis(app)
     app_include_routers(app)
+
+    # Serve static files
+    app.mount(
+        "/static", StaticFiles(directory="frontend/build/static"), name="static"
+    )
+
+    # Serve the frontend
+    @app.get("/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        file_path = os.path.join("frontend", "build", full_path)
+        if os.path.exists(file_path):
+            return FileResponse(file_path)
+        return FileResponse("frontend/build/index.html")
 
     return app
 

@@ -8,3 +8,5 @@ logzero==1.7.0
 pydantic==2.6.4
 uvicorn==0.28.0
 openai==1.16.2
+sqlalchemy==1.4.46
+aiosqlite==0.18.0
