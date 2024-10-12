@@ -26,6 +26,10 @@ class AzureOpenAIClient(BaseClient):
         temperature: float = 0,
         max_tokens: int = 2000,
     ) -> str:
+        # Azure OpenAI API expects model names without the "azure-" prefix
+        if model_name.startswith("azure-"):
+            model_name = model_name.replace("azure-", "", 1)
+
         response = self.client.chat.completions.create(
             model=model_name,
             max_tokens=max_tokens,

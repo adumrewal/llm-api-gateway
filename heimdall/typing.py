@@ -24,6 +24,36 @@ class ClientsEnum(str, Enum):
     bedrock_claude = "bedrock_claude"
 
 
+class ModelNameEnum(str, Enum):
+    gpt_3_5_turbo = "gpt-3.5-turbo"
+    gpt_4_turbo = "gpt-4-turbo"
+    gpt_4o = "gpt-4o"
+    gpt_4o_mini = "gpt-4o-mini"
+    azure_gpt_3_5_turbo = "azure-gpt-3.5-turbo"
+    azure_gpt_4_turbo = "azure-gpt-4-turbo"
+    azure_gpt_4o = "azure-gpt-4o"
+    azure_gpt_4o_mini = "azure-gpt-4o-mini"
+    claude_3_opus = "anthropic.claude-3-opus-20240229-v1:0"
+    claude_sonnet = "anthropic.claude-3-5-sonnet-20240620-v1:0"
+    claude_3_haiku = "anthropic.claude-3-haiku-20240307-v1:0"
+    # Add more models as needed
+
+
+model_client_mapping = {
+    ModelNameEnum.gpt_3_5_turbo: ClientsEnum.openai,
+    ModelNameEnum.gpt_4_turbo: ClientsEnum.openai,
+    ModelNameEnum.gpt_4o: ClientsEnum.openai,
+    ModelNameEnum.gpt_4o_mini: ClientsEnum.openai,
+    ModelNameEnum.azure_gpt_3_5_turbo: ClientsEnum.azure_openai,
+    ModelNameEnum.azure_gpt_4_turbo: ClientsEnum.azure_openai,
+    ModelNameEnum.azure_gpt_4o: ClientsEnum.azure_openai,
+    ModelNameEnum.azure_gpt_4o_mini: ClientsEnum.azure_openai,
+    ModelNameEnum.claude_3_opus: ClientsEnum.bedrock_claude,
+    ModelNameEnum.claude_sonnet: ClientsEnum.bedrock_claude,
+    ModelNameEnum.claude_3_haiku: ClientsEnum.bedrock_claude,
+}
+
+
 class ClientCallDataModel(BaseModel):
     name_model: str = Field(
         description="The name of the model to use for the API call",
@@ -46,11 +76,12 @@ class ClientCallDataModel(BaseModel):
         description="The maximum number of tokens to generate",
         default=2000,
     )
-    preference: list[ClientsEnum] = Field(
-        description="The preference of the model to use for the API call",
+    preference: list[ModelNameEnum] = Field(
+        description="The preference order of models to use for the API call",
         default=[
-            ClientsEnum.openai,
-            ClientsEnum.azure_openai,
-            ClientsEnum.bedrock_claude,
+            ModelNameEnum.gpt_3_5_turbo,
+            ModelNameEnum.claude_sonnet,
+            ModelNameEnum.gpt_4_turbo,
+            ModelNameEnum.azure_gpt_4_turbo,
         ],
     )

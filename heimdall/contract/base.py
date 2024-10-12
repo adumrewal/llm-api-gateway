@@ -37,7 +37,12 @@ async def model_call(
                     "json_response": False,
                     "temperature": 0,
                     "max_tokens": 2000,
-                    "preference": ["openai", "azure_openai", "bedrock_claude"],
+                    "preference": [
+                        "gpt-3.5-turbo",
+                        "anthropic.claude-3-5-sonnet-20240620-v1:0",
+                        "gpt-4-turbo",
+                        "azure-gpt-4-turbo",
+                    ],
                 }
             ]
         ),
