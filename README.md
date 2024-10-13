@@ -117,7 +117,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
   - ✅ Phase 1: Correct fallback mechanism.
     - ✅ Currently fallback is at provider level. Need to add fallback at model level.
   - [ ] Phase 2: Configs for fall back via UI. Logging.
-    - 🟨 UI portal where users can add delete models.
+    - 🟨 UI portal where users can add delete models. Basic is done. Need improved UI for easier management.
     - UI portal where users can manage their configs for fall back.
     - User can select one model and then define fall back models for it.
     - Need to add logging for each API call. Logging includes request, response, latencies, tokens used, etc.
